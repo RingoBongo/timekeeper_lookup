@@ -1,4 +1,4 @@
-const host = "localhost:10000";
+const host = "devsrv740vm1:10000";
 
 // API Endpoints
 // TimeKeeper Lookup

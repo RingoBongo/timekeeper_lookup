@@ -9,13 +9,15 @@ abstract class TimeKeeperDetailRemoteDataSource {
   Future<List<TimeKeeperDetailModel>> getTimeKeepersFor(String tkinit);
 }
 
-class TimeKeeperDetailRemoteDataSourceImpl implements TimeKeeperDetailRemoteDataSource {
+class TimeKeeperDetailRemoteDataSourceImpl
+    implements TimeKeeperDetailRemoteDataSource {
   final http.Client client;
 
   TimeKeeperDetailRemoteDataSourceImpl({@required this.client});
 
   @override
   Future<List<TimeKeeperDetailModel>> getTimeKeepersFor(String tkinit) async {
+    print('tits ${"$timekeeperDetailAPIEndpoint\/$tkinit"}');
     final response = await client.get(
       "$timekeeperDetailAPIEndpoint\/$tkinit",
       headers: {
@@ -28,9 +30,11 @@ class TimeKeeperDetailRemoteDataSourceImpl implements TimeKeeperDetailRemoteData
 
     if (response.statusCode == 200) {
       print(response.body);
-      return (json.decode(response.body) as List).map((i) => TimeKeeperDetailModel.fromJson(i)).toList();
+      return (json.decode(response.body) as List)
+          .map((i) => TimeKeeperDetailModel.fromJson(i))
+          .toList();
     } else {
       throw Exception();
     }
   }
- }
+}

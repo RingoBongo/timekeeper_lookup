@@ -6,19 +6,20 @@ import 'package:myapp/features/timekeepers/data/datasources/timekeeper_detail_re
 import 'package:myapp/features/timekeepers/data/models/timekeeper_detail_model.dart';
 import 'package:myapp/features/timekeepers/domain/repositories/timekeeper_repository.dart';
 
-
-class TimeKeeperDetailRepositorymplementation implements TimeKeeperDetailRepository {
+class TimeKeeperDetailRepositorymplementation
+    implements TimeKeeperDetailRepository {
   final TimeKeeperDetailRemoteDataSource timeKeeperDetailRemoteDataSource;
 
   TimeKeeperDetailRepositorymplementation(
       {@required this.timeKeeperDetailRemoteDataSource});
 
   @override
-  Future<Either<Failure, List<TimeKeeperDetailModel>>> getTimeKeepers( String tkinit) async {
+  Future<Either<Failure, List<TimeKeeperDetailModel>>> getTimeKeepers(
+      {String tkinit}) async {
+    print('here');
     try {
-      final List<
-          TimeKeeperDetailModel> timekeepers = await timeKeeperDetailRemoteDataSource
-          .getTimeKeepersFor(tkinit);
+      final List<TimeKeeperDetailModel> timekeepers =
+          await timeKeeperDetailRemoteDataSource.getTimeKeepersFor(tkinit);
       return Right(timekeepers);
     } on ServerException {
       return Left(ServerFailure());
